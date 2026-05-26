@@ -216,13 +216,65 @@
       });
     }, true);
 
+    // Form submit — capture field metadata + safe values (no PII)
     document.addEventListener("submit", function(e) {
       var form = e.target;
+      var fields = [];
+      var SENSITIVE_NAME_RE = /pass|cc|card|cvv|ssn|secret|token|auth/i;
+
+      if (form.elements && form.elements.length) {
+        for (var i = 0; i < form.elements.length; i++) {
+          var el = form.elements[i];
+          var elType = (el.type || "").toLowerCase();
+          var elTag  = (el.tagName || "").toLowerCase();
+
+          // Skip non-data elements
+          if (!el.name && !el.id) continue;
+          if (elType === "submit" || elType === "button" || elType === "reset") continue;
+          if (elType === "hidden" || elType === "password") continue;
+          // For radio groups, only record the one that's checked
+          if (elType === "radio" && !el.checked) continue;
+
+          var fieldName = el.name || el.id;
+          var fieldValue = (el.value || "").toString();
+          var entry = {
+            name: fieldName,
+            type: elType || elTag,
+            filled: fieldValue.length > 0,
+            length: fieldValue.length
+          };
+
+          // Sensitive field name → redact entirely (defense in depth)
+          if (SENSITIVE_NAME_RE.test(fieldName.toLowerCase())) {
+            fields.push({ name: fieldName, type: elType || elTag, redacted: true });
+            continue;
+          }
+
+          var isSelectLike =
+            elType === "select-one" || elType === "select-multiple" ||
+            elType === "radio" || elType === "checkbox" ||
+            elTag === "select";
+
+          if (elType === "checkbox") {
+            entry.checked = el.checked;
+            if (el.checked) entry.value = scrubText(fieldValue || "on", 100);
+          } else if (isSelectLike) {
+            // Dropdowns / radios — these are selections, not free text → safe to capture
+            entry.value = scrubText(fieldValue, 100);
+          }
+          // Text / email / tel / textarea / number / date — only metadata (length, filled).
+          // Raw values are typically PII (name, email, message) and stay client-side.
+
+          fields.push(entry);
+        }
+      }
+
       send("form_submit", {
         formId:      form.id || null,
         formClasses: safeClassName(form) || null,
         formAction:  form.action || null,
-        fieldCount:  form.elements ? form.elements.length : 0
+        fieldCount:  form.elements ? form.elements.length : 0,
+        fields:      fields
       });
     }, true);
 
