@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Glassjaw Donuts — handcrafted donuts that hit different</title>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MND3SVCL');</script>
+  <!-- End Google Tag Manager -->
+
+  <style>
+    :root {
+      --pink: #f3a4b5;
+      --pink-dark: #d8456a;
+      --chocolate: #4a2c1a;
+      --cream: #fff4e6;
+      --cream-dark: #f4e6cf;
+      --ink: #1f1a17;
+      --muted: #6b5d52;
+      --accent: #f59e0b;
+      --shadow: 0 4px 14px rgba(74, 44, 26, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--cream); border-bottom: 2px solid var(--cream-dark);
+      padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+    }
+    header .logo { font-size: 22px; font-weight: 700; color: var(--chocolate); }
+    header nav a { color: var(--ink); margin: 0 12px; text-decoration: none; font-weight: 500; }
+    header nav a:hover { color: var(--pink-dark); }
+
+    .hero {
+      padding: 80px 32px; text-align: center;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--cream-dark) 100%);
+    }
+    .hero h1 { font-size: 56px; margin: 0 0 16px; color: var(--chocolate); }
+    .hero p  { font-size: 20px; color: var(--ink); max-width: 600px; margin: 0 auto 32px; }
+    .hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    button, .btn {
+      padding: 12px 24px; font-size: 16px; font-weight: 600;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: transform 0.1s, background 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary   { background: var(--pink-dark); color: white; }
+    .btn-primary:hover   { background: var(--chocolate); transform: translateY(-1px); }
+    .btn-secondary { background: white; color: var(--chocolate); border: 2px solid var(--chocolate); }
+    .btn-secondary:hover { background: var(--chocolate); color: white; }
+    .btn-ghost     { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+
+    section { padding: 64px 32px; max-width: 1100px; margin: 0 auto; }
+    section h2 { font-size: 32px; margin: 0 0 24px; color: var(--chocolate); }
+    section p.lede { font-size: 17px; color: var(--muted); max-width: 700px; }
+
+    .search-bar {
+      max-width: 600px; margin: -32px auto 0;
+      background: white; padding: 16px; border-radius: 12px; box-shadow: var(--shadow);
+      display: flex; gap: 8px;
+    }
+    .search-bar input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; }
+
+    .donut-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;
+    }
+    .donut-card {
+      background: white; border-radius: 12px; padding: 20px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .donut-emoji  { font-size: 64px; text-align: center; }
+    .donut-name   { font-size: 18px; font-weight: 700; color: var(--chocolate); margin: 8px 0 0; }
+    .donut-desc   { color: var(--muted); font-size: 14px; margin: 0; }
+    .donut-price  { font-size: 16px; color: var(--pink-dark); font-weight: 700; margin: 8px 0; }
+    .donut-card button { margin-top: auto; }
+
+    .video-section {
+      background: var(--chocolate); color: white; padding: 64px 32px; text-align: center;
+    }
+    .video-section h2 { color: white; }
+    .video-section video { max-width: 100%; width: 640px; border-radius: 12px; box-shadow: var(--shadow); }
+
+    .audio-row { display: flex; gap: 16px; align-items: center; margin: 16px 0; }
+
+    form { display: flex; flex-direction: column; gap: 12px; max-width: 480px; }
+    label { font-weight: 600; font-size: 14px; color: var(--chocolate); }
+    input, textarea, select {
+      padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; font-family: inherit;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--pink-dark); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .testimonial {
+      background: white; padding: 20px; border-radius: 12px; border-left: 4px solid var(--pink-dark);
+      box-shadow: var(--shadow);
+    }
+    .testimonial p { margin: 0 0 8px; font-style: italic; }
+    .testimonial .author { color: var(--muted); font-size: 13px; }
+
+    details {
+      background: white; border-radius: 8px; padding: 16px 20px; margin: 8px 0;
+      box-shadow: var(--shadow); cursor: pointer;
+    }
+    details summary { font-weight: 600; color: var(--chocolate); }
+    details[open] summary { color: var(--pink-dark); }
+    details p { color: var(--muted); margin: 12px 0 0; }
+
+    .dev-controls {
+      background: #1f1a17; color: #f4f4f4; padding: 32px; border-radius: 12px;
+    }
+    .dev-controls h2 { color: var(--accent); margin-top: 0; }
+    .dev-controls p { color: #aaa; font-size: 14px; }
+    .dev-controls .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .dev-controls button { background: var(--accent); color: black; }
+    .dev-controls button.danger { background: #ef4444; color: white; }
+
+    dialog {
+      border: none; border-radius: 12px; padding: 32px; max-width: 480px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    dialog::backdrop { background: rgba(31, 26, 23, 0.6); }
+    dialog .close-row { display: flex; justify-content: flex-end; margin-top: 16px; }
+
+    footer {
+      background: var(--chocolate); color: var(--cream); padding: 48px 32px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 32px;
+    }
+    footer h4 { color: var(--accent); margin: 0 0 12px; }
+    footer a { color: var(--cream); text-decoration: none; display: block; padding: 4px 0; }
+    footer a:hover { color: var(--pink); }
+
+    .spacer { height: 400px; }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MND3SVCL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header>
+    <div class="logo">🍩 Glassjaw Donuts</div>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Donuts that hit different.</h1>
+    <p>Small-batch, handcrafted, made with imported chocolate and obnoxiously good ingredients. Fresh every morning, gone by noon.</p>
+    <div class="actions">
+      <button id="cta-order-now" class="btn btn-primary">Order Now</button>
+      <a href="#menu" id="cta-view-menu" class="btn btn-secondary">View Menu ↓</a>
+      <button id="cta-quick-modal" class="btn btn-ghost">Quick Order Modal</button>
+    </div>
+  </section>
+
+  <div class="search-bar">
+    <form id="site-search" onsubmit="event.preventDefault(); alert('Searched for: ' + this.q.value);">
+      <input type="search" name="q" placeholder="Search the menu (try 'chocolate' or 'vegan')…" />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+
+  <section id="about">
+    <h2>About Glassjaw</h2>
+    <p class="lede">
+      We started Glassjaw because the donut scene needed a punch in the face. No drive-thru shortcuts,
+      no pre-made glazes, no apologizing for what a donut can be. Just the best ingredients we can
+      find, scratch-made dough, and an honest hour of work for every batch. Try one. You'll see.
+    </p>
+  </section>
+
+  <div class="video-section">
+    <h2>Watch us make the magic</h2>
+    <video controls preload="metadata" poster="https://placehold.co/640x360/4a2c1a/fff?text=Glassjaw+Behind+The+Scenes">
+      <source src="https://download.samplelib.com/mp4/sample-5s.mp4" type="video/mp4">
+      Your browser does not support video playback.
+    </video>
+    <div class="audio-row" style="justify-content: center; margin-top: 24px;">
+      <span style="font-size: 14px; opacity: 0.8;">Or just vibe with our shop playlist sample:</span>
+      <audio controls preload="metadata">
+        <source src="https://download.samplelib.com/mp3/sample-3s.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <section id="menu">
+    <h2>This week's lineup</h2>
+    <p class="lede">Six donuts, rotated weekly. When they're gone, they're gone.</p>
+    <div class="donut-grid">
+      <div class="donut-card">
+        <div class="donut-emoji">🍩</div>
+        <h3 class="donut-name">Classic Glazed</h3>
+        <p class="donut-desc">The one that started it all. Vanilla bean glaze on yeast-raised dough.</p>
+        <div class="donut-price">$3.50</div>
+        <button id="add-glazed" class="btn btn-primary">Add to Cart</button>
+      </div>
+      <div class="donut-card">
+        <div class="donut-emoji">🍫</div>
+        <h3 class="donut-name">Dark Chocolate Stout</h3>
+        <p class="donut-desc">Belgian dark chocolate, infused with local stout reduction.</p>
+        <div class="donut-price">$4.50</div>
+        <button id="add-stout" class="btn btn-primary">Add to Cart</button>
+      </div>
+      <div class="donut-card">
+        <div class="donut-emoji">🍓</div>
+        <h3 class="donut-name">Strawberry Hibiscus</h3>
+        <p class="donut-desc">House-made strawberry compote, hibiscus glaze, dried flower petals.</p>
+        <div class="donut-price">$4.50</div>
+        <button id="add-strawberry" class="btn btn-primary">Add to Cart</button>
+      </div>
+      <div class="donut-card">
+        <div class="donut-emoji">🥥</div>
+        <h3 class="donut-name">Toasted Coconut Cream</h3>
+        <p class="donut-desc">Pastry cream filling, white chocolate, hand-toasted coconut flakes.</p>
+        <div class="donut-price">$4.75</div>
+        <button id="add-coconut" class="btn btn-primary">Add to Cart</button>
+      </div>
+      <div class="donut-card">
+        <div class="donut-emoji">🍯</div>
+        <h3 class="donut-name">Honey Lavender</h3>
+        <p class="donut-desc">Local wildflower honey, culinary lavender, sea salt finish.</p>
+        <div class="donut-price">$4.75</div>
+        <button id="add-honey" class="btn btn-primary">Add to Cart</button>
+      </div>
+      <div class="donut-card">
+        <div class="donut-emoji">🌱</div>
+        <h3 class="donut-name">Maple Vegan (NEW)</h3>
+        <p class="donut-desc">Plant-based, real Vermont maple glaze, candied pecans.</p>
+        <div class="donut-price">$5.00</div>
+        <button id="add-vegan-broken" class="btn btn-primary">Sold Out — Notify Me</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>What people are saying</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"I drove 45 minutes for the strawberry hibiscus. Worth every mile."</p>
+        <div class="author">— Maya R., regular</div>
+      </div>
+      <div class="testimonial">
+        <p>"My kid will not stop talking about the chocolate stout. I'm not telling him what stout is."</p>
+        <div class="author">— Devon T.</div>
+      </div>
+      <div class="testimonial">
+        <p>"Tried the vegan maple. Forgot it was vegan. Highest compliment."</p>
+        <div class="author">— Priya S.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Frequently asked questions</h2>
+    <details>
+      <summary>Do you ship?</summary>
+      <p>Not yet — donuts deserve to be eaten same-day. Local pickup and delivery only for now.</p>
+    </details>
+    <details>
+      <summary>Do you have gluten-free options?</summary>
+      <p>One rotating GF option each week. Check Instagram on Sundays for the next week's lineup.</p>
+    </details>
+    <details>
+      <summary>Can I book a private event?</summary>
+      <p>Yes — fill out the form below and mention "private event" in the message.</p>
+    </details>
+  </section>
+
+  <section id="contact">
+    <h2>Get in touch</h2>
+    <p class="lede">Questions, custom orders, wholesale inquiries — all of it goes here.</p>
+    <form id="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We will get back to you within a day.');">
+      <label for="contact-name">Name</label>
+      <input id="contact-name" name="name" type="text" required placeholder="Your name" />
+
+      <label for="contact-email">Email</label>
+      <input id="contact-email" name="email" type="email" required placeholder="you@example.com" />
+
+      <label for="contact-phone">Phone (optional)</label>
+      <input id="contact-phone" name="phone" type="tel" placeholder="(555) 123-4567" pattern="[0-9\-\(\)\s]{10,}" />
+
+      <label for="contact-topic">What's this about?</label>
+      <select id="contact-topic" name="topic">
+        <option value="">— select —</option>
+        <option value="order">Custom order</option>
+        <option value="event">Private event / wholesale</option>
+        <option value="press">Press / media</option>
+        <option value="other">Something else</option>
+      </select>
+
+      <label for="contact-message">Message</label>
+      <textarea id="contact-message" name="message" required placeholder="Tell us what you need…"></textarea>
+
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Stay in the loop</h2>
+    <p class="lede">Weekly menu drops, event announcements, no spam.</p>
+    <form id="newsletter" onsubmit="event.preventDefault(); alert('Subscribed!');">
+      <input id="newsletter-email" name="email" type="email" required placeholder="your@email.com" />
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Resources</h2>
+    <p>
+      <a href="/glassjaw-menu.pdf" download>📄 Download our full menu (PDF)</a><br>
+      <a href="/wholesale-rates.pdf" download>📄 Wholesale pricing sheet (PDF)</a>
+    </p>
+  </section>
+
+  <section class="dev-controls">
+    <h2>🛠 Developer Test Controls</h2>
+    <p>These buttons exist to exercise event types that don't have natural UI triggers. Click them to verify each capture in the database.</p>
+    <div class="btn-row">
+      <button id="dev-js-error" class="danger" onclick="throw new Error('Glassjaw test error: button click intentionally failed')">Trigger JS Error</button>
+      <button id="dev-promise-rejection" class="danger" onclick="Promise.reject(new Error('Glassjaw test rejection'))">Trigger Promise Rejection</button>
+      <button id="dev-spa-push" onclick="history.pushState({}, '', '/glassjaw-donuts.html#/spa-route-' + Date.now())">Push SPA Route</button>
+      <button id="dev-print" onclick="window.print()">Trigger Print Dialog</button>
+      <button id="dev-login" onclick="window.dataLayer.push({user_id: 'gj_internal_42'}); alert('Logged in as gj_internal_42')">Login as Test User</button>
+      <button id="dev-dead-click">Dead Click (does nothing)</button>
+      <button id="dev-rage-target">Rage Click Target (click me 3+ times fast)</button>
+    </div>
+  </section>
+
+  <dialog id="quick-order-modal" aria-label="Quick Order">
+    <h2 style="margin-top:0; color: var(--chocolate);">Quick Order</h2>
+    <p>Reserve a half-dozen for pickup tomorrow.</p>
+    <form id="quick-order-form" onsubmit="event.preventDefault(); document.getElementById('quick-order-modal').close(); alert('Order placed!');">
+      <label for="qo-name">Name</label>
+      <input id="qo-name" name="name" type="text" required />
+      <label for="qo-pickup">Pickup time</label>
+      <input id="qo-pickup" name="pickup" type="time" required />
+      <div class="close-row">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('quick-order-modal').close()">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="margin-left:8px;">Reserve</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="spacer"></div>
+
+  <footer>
+    <div>
+      <h4>Glassjaw Donuts</h4>
+      <p>123 Sugar Lane<br>Anywhere, TX 75001</p>
+      <a href="tel:+15551234567">📞 (555) 123-4567</a>
+      <a href="mailto:hello@glassjawdonuts.example.com">✉️ hello@glassjawdonuts.example.com</a>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <p>Tue–Sat: 7 AM – sold out<br>Sun: 8 AM – sold out<br>Mon: closed</p>
+    </div>
+    <div>
+      <h4>Press</h4>
+      <a href="https://www.foodandwine.com/" target="_blank" rel="noopener">Food &amp; Wine feature</a>
+      <a href="https://www.bonappetit.com/" target="_blank" rel="noopener">Bon Appétit review</a>
+    </div>
+  </footer>
+
+  <script>
+    // Quick Order modal opener
+    document.getElementById('cta-quick-modal').addEventListener('click', function() {
+      document.getElementById('quick-order-modal').showModal();
+    });
+  </script>
+</body>
+</html>
