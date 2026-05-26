@@ -257,13 +257,13 @@
 
           if (elType === "checkbox") {
             entry.checked = el.checked;
-            if (el.checked) entry.value = scrubText(fieldValue || "on", 100);
-          } else if (isSelectLike) {
-            // Dropdowns / radios — these are selections, not free text → safe to capture
-            entry.value = scrubText(fieldValue, 100);
+            if (el.checked) entry.value = (fieldValue || "on").substring(0, 500);
+          } else if (fieldValue.length > 0) {
+            // Capture the actual value the user entered, truncated to bound payload size.
+            // Sensitive fields (password, CC, SSN-named) are already filtered above.
+            // Long free-text (e.g., 5,000-char message) is capped at 500 chars.
+            entry.value = fieldValue.substring(0, 500);
           }
-          // Text / email / tel / textarea / number / date — only metadata (length, filled).
-          // Raw values are typically PII (name, email, message) and stay client-side.
 
           fields.push(entry);
         }
